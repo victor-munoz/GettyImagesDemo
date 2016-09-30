@@ -15,7 +15,9 @@ Android app to play with the gettyimage.com API
 - Model View presenter pattern.
 - Responsive UI.
 - Use of RecyclerView.
-- Use of Data Binding.
+- Use of ConstraintLayout
+- Use of Collapsing Toolbar Layout
+- Butterknife for Data Binding.
 - Dagger 2 for Dependency injection 
 - Retrofit + GSON .
 - Picasso for image loading.
