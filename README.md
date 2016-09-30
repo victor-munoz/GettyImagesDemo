@@ -24,10 +24,10 @@ Source code of the Android app, using Retrofit, Dagger 2 and Picasso
 <img src="https://raw.githubusercontent.com/victor-munoz/EndlessRecyclerView/master/art/screenshots/users_nexus5.png" width="150"/><img src="https://raw.githubusercontent.com/victor-munoz/EndlessRecyclerView/master/art/screenshots/users_nexus7.png" width="220"/><img src="https://raw.githubusercontent.com/victor-munoz/EndlessRecyclerView/master/art/screenshots/user_nexus5.png" width="150"/><img src="https://raw.githubusercontent.com/victor-munoz/EndlessRecyclerView/master/art/screenshots/user_nexus7.png" width="220"/>
 
 ## Animations
-<img src="https://raw.githubusercontent.com/victor-munoz/GettyImagesDemo/tree/master/art/gift/enter_animation.gif" width="200"/>
-<img src="https://raw.githubusercontent.com/victor-munoz/GettyImagesDemo/tree/master/art/gift/collapse.gif" width="200"/>
-<img src="https://raw.githubusercontent.com/victor-munoz/GettyImagesDemo/tree/master/art/gift/endless_scroll.gif" width="200"/>
-<img src="https://raw.githubusercontent.com/victor-munoz/GettyImagesDemo/blob/master/art/gift/caption.gif" width="200"/>
+<img src="https://raw.githubusercontent.com/victor-munoz/GettyImagesDemo/master/art/gift/enter_animation.gif" width="200"/>
+<img src="https://raw.githubusercontent.com/victor-munoz/GettyImagesDemo/master/art/gift/collapse.gif" width="200"/>
+<img src="https://raw.githubusercontent.com/victor-munoz/GettyImagesDemo/master/art/gift/endless_scroll.gif" width="200"/>
+<img src="https://raw.githubusercontent.com/victor-munoz/GettyImagesDemo/master/art/gift/caption.gif" width="200"/>
 
 
 
