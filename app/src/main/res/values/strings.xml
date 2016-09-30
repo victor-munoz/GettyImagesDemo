@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Getty Images Demo</string>
+    <string name="image_downloaded_from_gettyimages_com">image downloaded from gettyimages.com</string>
+    <string name="search">Search…</string>
+    <string name="error_downloading">Error downloading images</string>
+    <string name="retry">RETRY</string>
+    <string name="no_images_were_found">No images were found</string>
+    <string name="caption">Caption:</string>
+    <string name="caviar_font">fonts/caviar_dreams.ttf</string>
+    <string name="caviar_bold_font">fonts/caviar_dreams_bold.ttf</string>
+    <string name="thumb_url">http://cache4.asset-cache.net/xt/%s.jpg?v=1&amp;g=fs1|0|EPL|20|280&amp;s=1&amp;b=RjI4</string>
+</resources>

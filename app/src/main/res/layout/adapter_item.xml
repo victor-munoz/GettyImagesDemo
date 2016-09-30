@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/root"
+    android:elevation="2dp"
+    android:background="@drawable/adapter_item_bg"
+    tools:targetApi="lollipop">
+
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/image_downloaded_from_gettyimages_com" />
+
+    <TextView
+        android:id="@+id/image_id"
+        android:textSize="@dimen/item_text_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/scrimBlack"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
+        android:textColor="@android:color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:textSize="@dimen/item_text_size"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="8dp"
+        android:textColor="@color/textItem"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/picture" />
+
+</android.support.constraint.ConstraintLayout>

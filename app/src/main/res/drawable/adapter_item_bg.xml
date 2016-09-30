@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <padding
+                android:bottom="@dimen/v21_shadow_margin"
+                android:left="0dp"
+                android:right="@dimen/v21_shadow_margin"
+                android:top="0dp"/>
+            <solid android:color="#00CCCCCC"/>
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:bottom="@dimen/v21_shadow_margin" android:left="0dp" android:right="@dimen/v21_shadow_margin"
+                android:top="0dp"/>
+            <solid android:color="#10CCCCCC"/>
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:bottom="@dimen/v21_shadow_margin" android:left="0dp" android:right="@dimen/v21_shadow_margin"
+                android:top="0dp"/>
+            <solid android:color="#20CCCCCC"/>
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:bottom="@dimen/v21_shadow_margin" android:left="0dp" android:right="@dimen/v21_shadow_margin"
+                android:top="0dp"/>
+            <solid android:color="#30CCCCCC"/>
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:bottom="@dimen/v21_shadow_margin" android:left="@dimen/v21_shadow_margin" android:right="@dimen/v21_shadow_margin" android:top="@dimen/v21_shadow_margin"/>
+            <solid android:color="#50CCCCCC"/>
+        </shape>
+    </item>
+
+    <!-- Background -->
+    <item>
+        <shape>
+            <solid android:color="@android:color/white"/>
+
+        </shape>
+    </item>
+</layer-list>
