@@ -32,11 +32,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     private final static int ANIMATION_DURATION = 1000;
     private final Typeface myTypeface;
     private final Context context;
-    private List<GettyImage> usersList = new ArrayList<>();
+    private List<GettyImage> imagesList = new ArrayList<>();
     private final Picasso picasso;
     private final AdapterListener adapterListener;
     private boolean isLastItem(MyViewHolder holder){
-        return holder.getAdapterPosition() == usersList.size() - 1;
+        return holder.getAdapterPosition() == imagesList.size() - 1;
     }
 
     public Adapter(Picasso picasso, Context context, AdapterListener listener) {
@@ -56,7 +56,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        final GettyImage user = usersList.get(position);
+        final GettyImage user = imagesList.get(position);
         String url=context.getString(R.string.thumb_url,user.getId());
         holder.itemView.setVisibility(View.GONE);
         picasso.load(url).into(holder.picture, new Callback() {
@@ -94,7 +94,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        return usersList.size();
+        return imagesList.size();
     }
 
     @Override
@@ -106,19 +106,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     }
 
     GettyImage getItem(int position) {
-        return usersList.get(position);
+        return imagesList.get(position);
     }
 
     void addImages(List<GettyImage> users) {
-        int startPosition = usersList.size();
+        int startPosition = imagesList.size();
         int endPosition = startPosition + users.size() - 1;
-        usersList.addAll(users);
+        imagesList.addAll(users);
         notifyItemRangeInserted(startPosition, endPosition);
 
     }
 
     void removeAllImages() {
-        usersList.clear();
+        imagesList.clear();
         notifyDataSetChanged();
 
     }
