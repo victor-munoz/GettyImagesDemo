@@ -1,7 +1,7 @@
 package demo.victormunoz.gettyimagesdemo.ui.search;
 import java.util.List;
 
-import demo.victormunoz.gettyimagesdemo.injection.module.GettyImagesModule.GettyImagesAPI;
+import demo.victormunoz.gettyimagesdemo.injection.module.RetrofitModule.GettyImagesAPI;
 import demo.victormunoz.gettyimagesdemo.model.GettyImage;
 import demo.victormunoz.gettyimagesdemo.utils.espresso.EspressoIdlingResource;
 import retrofit2.Call;

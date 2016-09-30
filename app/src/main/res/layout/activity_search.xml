@@ -9,6 +9,7 @@
     tools:context="demo.victormunoz.gettyimagesdemo.ui.search.SearchActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:background="@android:color/transparent"
         android:clipChildren="false"
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
@@ -21,7 +22,6 @@
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 

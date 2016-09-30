@@ -14,12 +14,12 @@ import demo.victormunoz.gettyimagesdemo.ui.search.Presenter;
 
 
 
-@Module(includes = {GettyImagesModule.class})
+@Module(includes = {RetrofitModule.class})
 public class PresenterModule {
     private final Contract.Views mUsersView;
     @Provides @Singleton
     Contract.UserActionsListener
-    providesPresenterInterface(GettyImagesModule.GettyImagesAPI github, Context context) {
+    providesPresenterInterface(RetrofitModule.GettyImagesAPI github, Context context) {
         int pageSize = context.getResources().getInteger(R.integer.page_size);
         return new Presenter(mUsersView,github,pageSize);
     }

@@ -17,12 +17,12 @@ import retrofit2.http.Query;
 
 
 @Module
-public class GettyImagesModule {
+public class RetrofitModule {
     private final static String OBJECT_TO_DESEREALIZE ="images";
     private final static String END_POINT ="https://api.gettyimages.com/v3/search/";
 
     public interface GettyImagesAPI {
-        @Headers("Api-Key: cw7pfqdwgxbv9vp98qmz5bk4")
+        @Headers("Api-Key:4x3mqfykgft2uj2zynnw4b9w")
         @GET("images/")
         Call<List<GettyImage>> getImages(
                 @Query("page") int startingPage,
