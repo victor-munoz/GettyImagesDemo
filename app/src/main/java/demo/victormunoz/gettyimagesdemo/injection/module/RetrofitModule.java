@@ -2,7 +2,6 @@ package demo.victormunoz.gettyimagesdemo.injection.module;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.util.List;
 import javax.inject.Singleton;
 import dagger.Module;
@@ -28,7 +27,6 @@ public class RetrofitModule {
                 @Query("page") int startingPage,
                 @Query("phrase") String phrase,
                 @Query("page_size") int size);
-
     }
     @Provides
     @Singleton

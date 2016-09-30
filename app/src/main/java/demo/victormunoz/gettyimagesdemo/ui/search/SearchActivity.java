@@ -14,6 +14,7 @@ import android.support.design.widget.Snackbar;
 import android.support.test.espresso.IdlingResource;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -49,9 +50,8 @@ import demo.victormunoz.gettyimagesdemo.model.GettyImage;
 import demo.victormunoz.gettyimagesdemo.utils.espresso.EspressoIdlingResource;
 import demo.victormunoz.gettyimagesdemo.utils.recyclerview.SameMargin;
 
-public class SearchActivity extends AppCompatActivity implements
-        Contract.Views,
-        Adapter.AdapterListener {
+public class SearchActivity extends AppCompatActivity
+        implements Contract.Views, Adapter.AdapterListener {
     @BindView(R.id.app_bar)
     AppBarLayout appBarLayout;
     @BindView(R.id.recycler_view)
@@ -68,6 +68,8 @@ public class SearchActivity extends AppCompatActivity implements
     ImageView bottomSheetImage;
     @BindView(R.id.progress)
     ProgressBar progress;
+    @BindView(R.id.bottom_sheet)
+    NestedScrollView bottomSheet;
     @Inject
     Adapter adapter;
     @Inject
@@ -76,6 +78,7 @@ public class SearchActivity extends AppCompatActivity implements
     private Typeface myTypeface;
 
     static {
+        //enable vector drawables on pre-lollipop
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
@@ -105,12 +108,16 @@ public class SearchActivity extends AppCompatActivity implements
         actionBar.setDisplayHomeAsUpEnabled(false);
     }
 
-    private void setBottomSheet() {
-
-        View bottomSheet = findViewById(R.id.bottom_sheet);
+    private void setBottomSheetBehavior() {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+    }
+
+    private void setSearchEditText() {
         myTypeface = Typeface.createFromAsset(getAssets(), getString(R.string.caviar_font));
         search.setTypeface(myTypeface);
+        Drawable cloudIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.icon_search, null);
+        search.setCompoundDrawablesWithIntrinsicBounds(cloudIcon, null, null, null);
+        search.setCompoundDrawablePadding(getResources().getDimensionPixelOffset(R.dimen.margin_content));
         search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -123,7 +130,6 @@ public class SearchActivity extends AppCompatActivity implements
                         userActionsListener.loadImagesByPhrase(phrase);
                         progress.setVisibility(View.VISIBLE);
                     }
-
                     return true;
                 }
                 return false;
@@ -137,22 +143,18 @@ public class SearchActivity extends AppCompatActivity implements
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
-    private void showSoftKeyboard(){
+
+    private void showSoftKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(search, InputMethodManager.SHOW_IMPLICIT);
     }
 
-    private void setSnackBarIcon(Snackbar snackBar) {
+    private void setSnackBarLeftIcon(Snackbar snackBar) {
         View sbView = snackBar.getView();
         TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
         Drawable cloudIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.icon_cloud, null);
         textView.setCompoundDrawablesWithIntrinsicBounds(cloudIcon, null, null, null);
         textView.setCompoundDrawablePadding(getResources().getDimensionPixelOffset(R.dimen.margin_content));
-    }
-    private void setSearchIcon() {
-        Drawable cloudIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.icon_search, null);
-        search.setCompoundDrawablesWithIntrinsicBounds(cloudIcon, null, null, null);
-        search.setCompoundDrawablePadding(getResources().getDimensionPixelOffset(R.dimen.margin_content));
     }
 
     private void setProgressColor() {
@@ -161,6 +163,7 @@ public class SearchActivity extends AppCompatActivity implements
             progress.getIndeterminateDrawable().setColorFilter(colorAccent, PorterDuff.Mode.SRC_IN);
         }
     }
+
     private void setDependencyInjection() {
         DaggerSearchComponent.builder()
                 .contextModule(new ContextModule(this))
@@ -202,18 +205,22 @@ public class SearchActivity extends AppCompatActivity implements
         setDependencyInjection();
         setRecyclerView();
         setActionBar();
-        setBottomSheet();
+        setSearchEditText();
         setProgressColor();
-        setSearchIcon();
+        setBottomSheetBehavior();
     }
-
-
 
     @Override
     protected void onResume() {
         super.onResume();
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         animateSearchEnter();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        userActionsListener = null;
     }
 
     @Override
@@ -225,7 +232,6 @@ public class SearchActivity extends AppCompatActivity implements
         }
     }
 
-
     @Override
     public void onImageClick(int position, Drawable drawable) {
         hideSoftKeyboard();
@@ -236,7 +242,6 @@ public class SearchActivity extends AppCompatActivity implements
             bottomSheetTittle.setTypeface(myTypeface);
             bottomSheetImage.setImageDrawable(drawable);
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
         } else {
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         }
@@ -261,9 +266,9 @@ public class SearchActivity extends AppCompatActivity implements
         recyclerView.setVisibility(View.GONE);
         adapter.removeAllImages();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            //hide shadow line when there is no images displayed
             appBarLayout.setElevation(0f);
         }
-
     }
 
     @Override
@@ -278,7 +283,7 @@ public class SearchActivity extends AppCompatActivity implements
                         userActionsListener.loadMoreImages();
                     }
                 });
-        setSnackBarIcon(snackbar);
+        setSnackBarLeftIcon(snackbar);
         snackbar.show();
     }
 
@@ -291,11 +296,12 @@ public class SearchActivity extends AppCompatActivity implements
                     .make(recyclerView, message, Snackbar.LENGTH_SHORT);
             View snackBarView = snackbar.getView();
             snackBarView.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
-            setSnackBarIcon(snackbar);
+            setSnackBarLeftIcon(snackbar);
             snackbar.show();
         }
 
     }
+
     @VisibleForTesting
     public IdlingResource getCountingIdlingResource() {
         return EspressoIdlingResource.getIdlingResource();

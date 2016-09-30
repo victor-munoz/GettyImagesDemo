@@ -1,13 +1,12 @@
 package demo.victormunoz.gettyimagesdemo.ui.search;
-import java.util.List;
 
+import java.util.List;
 import demo.victormunoz.gettyimagesdemo.injection.module.RetrofitModule.GettyImagesAPI;
 import demo.victormunoz.gettyimagesdemo.model.GettyImage;
 import demo.victormunoz.gettyimagesdemo.utils.espresso.EspressoIdlingResource;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 public class Presenter implements Contract.UserActionsListener, Callback<List<GettyImage>> {
     private final Contract.Views activityListener;
@@ -20,7 +19,6 @@ public class Presenter implements Contract.UserActionsListener, Callback<List<Ge
         this.activityListener = activityListener;
         this.gettyImagesAPI = gettyImages;
         this.pageSize = pageSize;
-
     }
     @Override
     public void loadImagesByPhrase(String phrase) {

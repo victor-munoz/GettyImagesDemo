@@ -27,7 +27,8 @@
             android:scaleType="centerCrop"
             android:cropToPadding="false"
             android:adjustViewBounds="true"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/image_downloaded_from_gettyimages_com" />
         <TextView
             android:id="@+id/tittle"
             app:layout_constraintTop_toBottomOf="@+id/image"

@@ -1,12 +1,8 @@
 package demo.victormunoz.gettyimagesdemo.injection.module;
 
-
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.AssetManager;
-
 import com.squareup.picasso.Picasso;
-
 import dagger.Module;
 import dagger.Provides;
 import demo.victormunoz.gettyimagesdemo.ui.search.Adapter;

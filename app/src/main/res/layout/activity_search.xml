@@ -9,7 +9,6 @@
     tools:context="demo.victormunoz.gettyimagesdemo.ui.search.SearchActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:background="@android:color/transparent"
         android:clipChildren="false"
         android:id="@+id/app_bar"
         android:layout_width="match_parent"

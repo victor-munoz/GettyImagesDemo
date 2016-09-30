@@ -10,9 +10,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-
-
-
 public class Deserializer <T> implements TypeAdapterFactory {
     private final String objectName;
 
@@ -21,10 +18,8 @@ public class Deserializer <T> implements TypeAdapterFactory {
     }
 
     public <T> TypeAdapter<T> create(Gson gson, final TypeToken<T> type) {
-
         final TypeAdapter<T> delegate = gson.getDelegateAdapter(this, type);
         final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-
         return new TypeAdapter<T>() {
 
             public void write(JsonWriter out, T value) throws IOException {
@@ -32,7 +27,6 @@ public class Deserializer <T> implements TypeAdapterFactory {
             }
 
             public T read(JsonReader in) throws IOException {
-
                 JsonElement jsonElement = elementAdapter.read(in);
                 if (jsonElement.isJsonObject()) {
                     JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -41,7 +35,6 @@ public class Deserializer <T> implements TypeAdapterFactory {
                         jsonElement = jsonObject.get(objectName);
                     }
                 }
-
                 return delegate.fromJsonTree(jsonElement);
             }
         }.nullSafe();

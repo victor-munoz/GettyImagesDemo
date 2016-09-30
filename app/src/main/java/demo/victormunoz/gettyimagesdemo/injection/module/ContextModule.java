@@ -1,4 +1,5 @@
 package demo.victormunoz.gettyimagesdemo.injection.module;
+
 import dagger.Module;
 import dagger.Provides;
 
