@@ -166,7 +166,7 @@ public class SearchActivity extends AppCompatActivity
 
     private void setDependencyInjection() {
         DaggerSearchComponent.builder()
-                .contextModule(new ContextModule(this))
+                .contextModule(new ContextModule(getApplicationContext()))
                 .adapterModule(new AdapterModule(this))
                 .presenterModule(new PresenterModule(this))
                 .build().inject(this);
