@@ -1,22 +1,25 @@
 # GettyImagesDemo
-Source code of the Android app, using Retrofit, Dagger 2 and Picasso
+Android app to play with the gettyimage.com API 
 
 ## App Features
 
 - Search images on gettyimages.com by phrase
 - Display an endless list of images.
+- Bottom sheet for displaying the image's caption
 
 
 ## Code Features
 
 - Clean app architecture: UI and API separated.
-- Responsive UI
+- Package by feature.
+- Model View presenter pattern.
+- Responsive UI.
 - Use of RecyclerView.
 - Use of Data Binding.
-- Retrofit + GSON .
 - Dagger 2 for Dependency injection 
+- Retrofit + GSON .
 - Picasso for image loading.
-- Espresso for Unit Testing. 
+- Espresso for instrumentation test. 
 - Cool animations.
 
 
