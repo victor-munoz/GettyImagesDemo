@@ -12,7 +12,7 @@ Android app to play with the gettyimage.com API
 
 - Clean app architecture: UI and API separated.
 - Package by feature.
-- Model View presenter pattern.
+- Model View Presenter pattern (MVP).
 - Responsive UI.
 - Use of RecyclerView.
 - Use of ConstraintLayout
