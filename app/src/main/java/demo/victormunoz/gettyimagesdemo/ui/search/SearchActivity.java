@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
@@ -41,6 +42,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import demo.victormunoz.gettyimagesdemo.BuildConfig;
 import demo.victormunoz.gettyimagesdemo.R;
 import demo.victormunoz.gettyimagesdemo.injection.component.DaggerSearchComponent;
 import demo.victormunoz.gettyimagesdemo.injection.module.AdapterModule;
@@ -49,6 +51,7 @@ import demo.victormunoz.gettyimagesdemo.injection.module.PresenterModule;
 import demo.victormunoz.gettyimagesdemo.model.GettyImage;
 import demo.victormunoz.gettyimagesdemo.utils.espresso.EspressoIdlingResource;
 import demo.victormunoz.gettyimagesdemo.utils.recyclerview.SameMargin;
+import rx.Observer;
 
 public class SearchActivity extends AppCompatActivity
         implements Contract.Views, Adapter.AdapterListener {
@@ -127,8 +130,8 @@ public class SearchActivity extends AppCompatActivity
                     if (phrase.length() == 0) {
                         removeAllImages();
                     } else {
-                        userActionsListener.loadImagesByPhrase(phrase);
                         progress.setVisibility(View.VISIBLE);
+                        userActionsListener.loadImagesByPhrase(phrase);
                     }
                     return true;
                 }
@@ -208,6 +211,18 @@ public class SearchActivity extends AppCompatActivity
         setSearchEditText();
         setProgressColor();
         setBottomSheetBehavior();
+        if (BuildConfig.DEBUG) {
+
+            StrictMode.setThreadPolicy(new
+                    StrictMode.ThreadPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build());
+        }
     }
 
     @Override

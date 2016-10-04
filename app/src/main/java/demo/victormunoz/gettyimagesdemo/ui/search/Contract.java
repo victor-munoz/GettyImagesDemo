@@ -2,6 +2,7 @@ package demo.victormunoz.gettyimagesdemo.ui.search;
 
 import java.util.List;
 import demo.victormunoz.gettyimagesdemo.model.GettyImage;
+import rx.Observable;
 
 public interface Contract {
 
@@ -19,7 +20,7 @@ public interface Contract {
 
     interface UserActionsListener {
 
-        void loadImagesByPhrase(String phrase);
+       void loadImagesByPhrase(String phrase);
 
         void loadMoreImages();
 
