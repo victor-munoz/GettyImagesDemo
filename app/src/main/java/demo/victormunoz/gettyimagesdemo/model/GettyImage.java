@@ -6,18 +6,32 @@ public class GettyImage {
     private String title;
     private String caption;
 
-    public String getId() {
+    public String getId(){
         return id;
     }
 
-    public String getTitle() {
+    @SuppressWarnings("unused")
+    public void setId(String id){
+        this.id = id;
+    }
+
+    public String getTitle(){
         return title;
     }
 
-    public String getCaption() {
+    @SuppressWarnings("unused")
+    public void setTitle(String title){
+        this.title = title;
+    }
+
+    public String getCaption(){
         return caption;
     }
 
+    @SuppressWarnings("unused")
+    public void setCaption(String caption){
+        this.caption = caption;
+    }
 
 
 }

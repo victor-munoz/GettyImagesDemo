@@ -12,11 +12,11 @@ import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 
 public class RecyclerViewMatcher {
 
-    public static Matcher<View> atPosition(final int position, @NonNull final Matcher<View> itemMatcher) {
+    public static Matcher<View> atPosition(final int position, @NonNull final Matcher<View> itemMatcher){
         checkNotNull(itemMatcher);
         return new BoundedMatcher<View, RecyclerView>(RecyclerView.class) {
             @Override
-            public void describeTo(Description description) {
+            public void describeTo(Description description){
                 description.appendText("has item at position " + position + ": ");
                 itemMatcher.describeTo(description);
             }

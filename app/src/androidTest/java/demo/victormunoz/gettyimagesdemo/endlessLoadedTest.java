@@ -8,6 +8,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -16,8 +17,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import demo.victormunoz.gettyimagesdemo.features.search.SearchActivity;
 
+import demo.victormunoz.gettyimagesdemo.features.search.SearchActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
@@ -34,12 +35,11 @@ import static demo.victormunoz.gettyimagesdemo.macher.RecyclerViewMatcher.atPosi
 @MediumTest
 public class endlessLoadedTest {
     @Rule
-    public final ActivityTestRule<SearchActivity> mNotesActivityTestRule =
-            new ActivityTestRule<>(SearchActivity.class);
+    public final ActivityTestRule<SearchActivity> mNotesActivityTestRule = new ActivityTestRule<>(SearchActivity.class);
     private int pageSize;
 
     @Before
-    public void setUp() {
+    public void setUp(){
         //set number of images downloaded in one call
         pageSize = InstrumentationRegistry.getTargetContext().getResources().getInteger(R.integer.page_size);
         //set idle
@@ -48,50 +48,52 @@ public class endlessLoadedTest {
         // performed
         mNotesActivityTestRule.getActivity().runOnUiThread(new Runnable() {
             @Override
-            public void run() {
+            public void run(){
                 RecyclerView recyclerView = mNotesActivityTestRule.getActivity().findViewById(R.id.recycler_view);
-                CoordinatorLayout.LayoutParams params =
-                        (CoordinatorLayout.LayoutParams) recyclerView.getLayoutParams();
+                CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) recyclerView.getLayoutParams();
                 params.setBehavior(null);
                 recyclerView.requestLayout();
             }
         });
     }
+
     /**
      * scroll four times to the last element of the recyclerview and the check the total number of
      * images downloaded
      */
     @Test
-    public void endlessScrollingTest() {
+    public void endlessScrollingTest(){
         //search images with the phrase 'g'
         onView(withId(R.id.search)).perform(typeText("g"), pressImeActionButton());
         //scroll
-        onView(withId(R.id.recycler_view)).perform(scrollToPosition(pageSize-1));
-        onView(withId(R.id.recycler_view)).perform(scrollToPosition(pageSize*2-1));
-        onView(withId(R.id.recycler_view)).perform(scrollToPosition(pageSize*3-1));
-        onView(withId(R.id.recycler_view)).perform(scrollToPosition(pageSize*4-1));
+        onView(withId(R.id.recycler_view)).perform(scrollToPosition(pageSize - 1));
+        onView(withId(R.id.recycler_view)).perform(scrollToPosition(pageSize * 2 - 1));
+        onView(withId(R.id.recycler_view)).perform(scrollToPosition(pageSize * 3 - 1));
+        onView(withId(R.id.recycler_view)).perform(scrollToPosition(pageSize * 4 - 1));
         //check if item is displayed
-        onView(withId(R.id.recycler_view)).check(matches(atPosition((pageSize*4-1), isDisplayed())));
+        onView(withId(R.id.recycler_view)).check(matches(atPosition((pageSize * 4 - 1), isDisplayed())));
         //check total loaded images
-        onView(withId(R.id.recycler_view)).check(matches(withItemCount(pageSize*5)));
+        onView(withId(R.id.recycler_view)).check(matches(withItemCount(pageSize * 5)));
 
     }
+
     @After
-    public void unregisterIdlingResource() {
+    public void unregisterIdlingResource(){
         onView(withId(R.id.recycler_view)).perform(scrollToPosition(0));
-        Espresso.unregisterIdlingResources(
-                mNotesActivityTestRule.getActivity().getCountingIdlingResource());
+        Espresso.unregisterIdlingResources(mNotesActivityTestRule.getActivity().getCountingIdlingResource());
     }
 
     static class Matchers {
-        static Matcher<View> withItemCount(final int size) {
+        static Matcher<View> withItemCount(final int size){
             return new TypeSafeMatcher<View>() {
-                @Override public boolean matchesSafely (final View view) {
+                @Override
+                public boolean matchesSafely(final View view){
                     return ((RecyclerView) view).getAdapter().getItemCount() == size;
                 }
 
-                @Override public void describeTo (final Description description) {
-                    description.appendText ("recyclerView should have " + size + " items");
+                @Override
+                public void describeTo(final Description description){
+                    description.appendText("recyclerView should have " + size + " items");
                 }
             };
         }

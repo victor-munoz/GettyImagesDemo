@@ -34,37 +34,33 @@ public class Presenter implements Contract.UserActionsListener {
     @Override
     public void loadMoreImages(){
         EspressoIdlingResource.increment();
-        gettyImagesAPI.getImages(startPage, phrase, pageSize)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<GettyImage>>() {
-                    @Override
-                    public void onSubscribe(Disposable d){
+        gettyImagesAPI.getImages(startPage, phrase, pageSize).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<GettyImage>>() {
+            @Override
+            public void onSubscribe(Disposable d){
 
-                    }
+            }
 
-                    @Override
-                    public void onNext(List<GettyImage> images){
-                        if (images.size() > 0) {
-                            startPage++;
-                            activityListener.addImages(images);
-                        } else {
-                            activityListener.noImagesFound();
-                        }
-                        EspressoIdlingResource.decrement();
-                    }
-
-                    @Override
-                    public void onError(Throwable e){
-                        EspressoIdlingResource.decrement();
-                        activityListener.onLoadImagesFail();
-                    }
-
-                    @Override
-                    public void onComplete(){
-                    }
+            @Override
+            public void onNext(List<GettyImage> images){
+                if (images.size() > 0) {
+                    startPage++;
+                    activityListener.addImages(images);
+                } else {
+                    activityListener.noImagesFound();
                 }
-        );
+                EspressoIdlingResource.decrement();
+            }
+
+            @Override
+            public void onError(Throwable e){
+                EspressoIdlingResource.decrement();
+                activityListener.onLoadImagesFail();
+            }
+
+            @Override
+            public void onComplete(){
+            }
+        });
     }
 
 

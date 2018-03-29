@@ -1,6 +1,7 @@
 package demo.victormunoz.gettyimagesdemo.features.search;
 
 import java.util.List;
+
 import demo.victormunoz.gettyimagesdemo.model.GettyImage;
 
 public interface Contract {

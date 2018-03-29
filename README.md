@@ -10,19 +10,20 @@ Android app to play with the gettyimage.com API
 
 ## Code Features
 
-- Clean app architecture: UI and API separated.
-- Package by feature.
-- Model View Presenter pattern (MVP).
-- Responsive UI.
-- Use of RecyclerView.
+- Clean app architecture: UI and API separated
+- Package by feature
+- Model View Presenter pattern (MVP)
+- Responsive UI
+- Use of RecyclerView
 - Use of ConstraintLayout
 - Use of Collapsing Toolbar Layout
-- Butterknife for Data Binding.
+- Butterknife for Data Binding
 - Dagger 2 for Dependency injection 
-- Retrofit + GSON .
-- Picasso for image loading.
-- Espresso for instrumentation test. 
-- Cool animations.
+- RxJava for asynchronous programming
+- Retrofit + GSON
+- Glide for image loading
+- Espresso for instrumentation test
+- Cool animations
 
 
 ## Screenshots

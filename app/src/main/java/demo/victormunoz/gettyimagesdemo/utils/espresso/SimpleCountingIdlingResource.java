@@ -46,40 +46,40 @@ public final class SimpleCountingIdlingResource implements IdlingResource {
      *
      * @param resourceName the resource name this resource should report to Espresso.
      */
-    public SimpleCountingIdlingResource(String resourceName) {
+    public SimpleCountingIdlingResource(String resourceName){
         mResourceName = checkNotNull(resourceName);
     }
 
     @Override
-    public String getName() {
+    public String getName(){
         return mResourceName;
     }
 
     @Override
-    public boolean isIdleNow() {
+    public boolean isIdleNow(){
         return counter.get() == 0;
     }
 
     @Override
-    public void registerIdleTransitionCallback(ResourceCallback resourceCallback) {
+    public void registerIdleTransitionCallback(ResourceCallback resourceCallback){
         this.resourceCallback = resourceCallback;
     }
 
     /**
      * Increments the count of in-flight transactions to the resource being monitored.
      */
-    public void increment() {
+    public void increment(){
         counter.getAndIncrement();
     }
 
     /**
      * Decrements the count of in-flight transactions to the resource being monitored.
-     *
+     * <p>
      * If this operation results in the counter falling below 0 - an exception is raised.
      *
      * @throws IllegalStateException if the counter is below 0.
      */
-    public void decrement() {
+    public void decrement(){
         int counterVal = counter.decrementAndGet();
         if (counterVal == 0) {
             // we've gone from non-zero to zero. That means we're idle now! Tell espresso.

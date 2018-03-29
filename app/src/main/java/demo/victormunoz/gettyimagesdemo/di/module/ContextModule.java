@@ -1,5 +1,7 @@
 package demo.victormunoz.gettyimagesdemo.di.module;
 
+import android.content.Context;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -7,12 +9,12 @@ import dagger.Provides;
 public class ContextModule {
     private final android.content.Context context;
 
-    public ContextModule(android.content.Context context) {
+    public ContextModule(android.content.Context context){
         this.context = context;
     }
 
     @Provides
-    android.content.Context provideContext() {
+    Context provideContext(){
         return context;
     }
 }

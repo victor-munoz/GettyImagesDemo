@@ -6,8 +6,8 @@
                 android:bottom="0dp"
                 android:left="0dp"
                 android:right="0dp"
-                android:top="2dp"/>
-            <solid android:color="#00CCCCCC"/>
+                android:top="2dp" />
+            <solid android:color="#00CCCCCC" />
         </shape>
     </item>
     <item>
@@ -16,8 +16,8 @@
                 android:bottom="0dp"
                 android:left="0dp"
                 android:right="0dp"
-                android:top="2dp"/>
-            <solid android:color="#10CCCCCC"/>
+                android:top="2dp" />
+            <solid android:color="#10CCCCCC" />
         </shape>
     </item>
     <item>
@@ -26,8 +26,8 @@
                 android:bottom="0dp"
                 android:left="0dp"
                 android:right="0dp"
-                android:top="2dp"/>
-            <solid android:color="#20CCCCCC"/>
+                android:top="2dp" />
+            <solid android:color="#20CCCCCC" />
         </shape>
     </item>
     <item>
@@ -36,8 +36,8 @@
                 android:bottom="0dp"
                 android:left="0dp"
                 android:right="0dp"
-                android:top="2dp"/>
-            <solid android:color="#30CCCCCC"/>
+                android:top="2dp" />
+            <solid android:color="#30CCCCCC" />
         </shape>
     </item>
     <item>
@@ -46,15 +46,15 @@
                 android:bottom="0dp"
                 android:left="0dp"
                 android:right="0dp"
-                android:top="2dp"/>
-            <solid android:color="#50CCCCCC"/>
+                android:top="2dp" />
+            <solid android:color="#50CCCCCC" />
         </shape>
     </item>
 
     <!-- Background -->
     <item>
         <shape>
-            <solid android:color="@android:color/white"/>
+            <solid android:color="@android:color/white" />
         </shape>
     </item>
 </layer-list>

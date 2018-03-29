@@ -14,10 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
+
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.victormunoz.gettyimagesdemo.R;
@@ -31,26 +36,26 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     private final Typeface caviarTypefaceBold;
     private final Context context;
     private final List<GettyImage> imagesList = new ArrayList<>();
-    private final Picasso picasso;
+    private final RequestManager picasso;
     private final AdapterListener adapterListener;
 
-    void addImages(List<GettyImage> users) {
+    void addImages(List<GettyImage> users){
         int startPosition = imagesList.size();
         int endPosition = startPosition + users.size() - 1;
         imagesList.addAll(users);
         notifyItemRangeInserted(startPosition, endPosition);
     }
 
-    void removeAllImages() {
+    void removeAllImages(){
         imagesList.clear();
         notifyDataSetChanged();
     }
 
-    private boolean isLastItem(MyViewHolder holder) {
+    private boolean isLastItem(MyViewHolder holder){
         return holder.getAdapterPosition() == imagesList.size() - 1;
     }
 
-    private void startItemEnterAnimation(final View view) {
+    private void startItemEnterAnimation(final View view){
         PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat(ALPHA, 0f, 1f);
         PropertyValuesHolder translationY = PropertyValuesHolder.ofFloat(TRANSLATION_Y, 100f, 0f);
         ObjectAnimator anim = ObjectAnimator.ofPropertyValuesHolder(view, alpha, translationY);
@@ -58,7 +63,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         anim.setDuration(ANIMATION_DURATION);
         anim.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationStart(Animator animation) {
+            public void onAnimationStart(Animator animation){
                 super.onAnimationStart(animation);
                 view.setVisibility(View.VISIBLE);
             }
@@ -66,11 +71,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         anim.start();
     }
 
-    GettyImage getItem(int position) {
+    GettyImage getItem(int position){
         return imagesList.get(position);
     }
 
-    public Adapter(Picasso picasso, Context context, AdapterListener listener) {
+    public Adapter(RequestManager picasso, Context context, AdapterListener listener){
         this.picasso = picasso;
         this.adapterListener = listener;
         this.context = context;
@@ -79,14 +84,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_item, parent, false);
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_item, parent, false);
         return new MyViewHolder(itemView, adapterListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position){
         holder.itemView.setVisibility(View.GONE);
         GettyImage gettyImage = imagesList.get(position);
         String imageURL = context.getString(R.string.thumb_url, gettyImage.getId());
@@ -94,7 +98,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         holder.tittle.setTypeface(caviarTypefaceBold);
         holder.id.setText(gettyImage.getId());
         holder.tittle.setText(gettyImage.getTitle());
-        picasso.load(imageURL).into(holder.picture, new Callback() {
+/*
+        picasso.load(imageURL)
+                .resize(holder.tittle.getWidth(), 0)
+                //.fit()
+                .into(holder.picture, new Callback() {
             @Override
             public void onSuccess() {
                 startItemEnterAnimation(holder.itemView);
@@ -104,16 +112,30 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             public void onError() {
             }
         });
+  */
+        picasso.load(imageURL).listener(new RequestListener<String, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource){
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource){
+                startItemEnterAnimation(holder.itemView);
+                return false;
+            }
+        }).into(holder.picture);
+
 
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount(){
         return imagesList.size();
     }
 
     @Override
-    public void onViewAttachedToWindow(@NonNull final MyViewHolder holder) {
+    public void onViewAttachedToWindow(@NonNull final MyViewHolder holder){
         super.onViewAttachedToWindow(holder);
         if (isLastItem(holder)) {
             adapterListener.onEndOfTheList();
@@ -129,7 +151,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         @BindView(R.id.picture)
         ImageView picture;
 
-        MyViewHolder(View view, AdapterListener listener) {
+        MyViewHolder(View view, AdapterListener listener){
             super(view);
             usersListener = listener;
             ButterKnife.bind(this, view);
@@ -137,7 +159,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         }
 
         @Override
-        public void onClick(View view) {
+        public void onClick(View view){
             int position = getAdapterPosition();
             Drawable drawable = picture.getDrawable();
             usersListener.onImageClick(position, drawable);
