@@ -1,4 +1,4 @@
-package demo.victormunoz.gettyimagesdemo.injection.module;
+package demo.victormunoz.gettyimagesdemo.di.module;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,8 +7,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import demo.victormunoz.gettyimagesdemo.R;
-import demo.victormunoz.gettyimagesdemo.ui.search.Contract;
-import demo.victormunoz.gettyimagesdemo.ui.search.Presenter;
+import demo.victormunoz.gettyimagesdemo.features.search.Contract;
+import demo.victormunoz.gettyimagesdemo.features.search.Presenter;
 
 @Module(includes = {RetrofitModule.class})
 public class PresenterModule {

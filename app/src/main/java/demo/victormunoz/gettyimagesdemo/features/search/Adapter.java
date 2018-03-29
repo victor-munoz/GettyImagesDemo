@@ -1,4 +1,4 @@
-package demo.victormunoz.gettyimagesdemo.ui.search;
+package demo.victormunoz.gettyimagesdemo.features.search;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -7,6 +7,7 @@ import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     private final static int ANIMATION_DURATION = 1000;
     private final Typeface caviarTypefaceBold;
     private final Context context;
-    private List<GettyImage> imagesList = new ArrayList<>();
+    private final List<GettyImage> imagesList = new ArrayList<>();
     private final Picasso picasso;
     private final AdapterListener adapterListener;
 
@@ -76,15 +77,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         caviarTypefaceBold = Typeface.createFromAsset(context.getAssets(), context.getString(R.string.caviar_bold_font));
     }
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.adapter_item, parent, false);
         return new MyViewHolder(itemView, adapterListener);
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         holder.itemView.setVisibility(View.GONE);
         GettyImage gettyImage = imagesList.get(position);
         String imageURL = context.getString(R.string.thumb_url, gettyImage.getId());
@@ -111,7 +113,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     }
 
     @Override
-    public void onViewAttachedToWindow(final MyViewHolder holder) {
+    public void onViewAttachedToWindow(@NonNull final MyViewHolder holder) {
         super.onViewAttachedToWindow(holder);
         if (isLastItem(holder)) {
             adapterListener.onEndOfTheList();
@@ -121,7 +123,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final AdapterListener usersListener;
         @BindView(R.id.image_id)
-        public TextView id;
+        TextView id;
         @BindView(R.id.title)
         TextView tittle;
         @BindView(R.id.picture)

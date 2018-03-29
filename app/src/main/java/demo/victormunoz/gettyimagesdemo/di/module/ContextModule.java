@@ -1,11 +1,11 @@
-package demo.victormunoz.gettyimagesdemo.injection.module;
+package demo.victormunoz.gettyimagesdemo.di.module;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class ContextModule {
-    private android.content.Context context;
+    private final android.content.Context context;
 
     public ContextModule(android.content.Context context) {
         this.context = context;

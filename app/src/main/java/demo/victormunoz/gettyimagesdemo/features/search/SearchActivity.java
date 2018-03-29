@@ -1,4 +1,4 @@
-package demo.victormunoz.gettyimagesdemo.ui.search;
+package demo.victormunoz.gettyimagesdemo.features.search;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -36,20 +36,22 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import demo.victormunoz.gettyimagesdemo.R;
-import demo.victormunoz.gettyimagesdemo.injection.component.DaggerSearchComponent;
-import demo.victormunoz.gettyimagesdemo.injection.module.AdapterModule;
-import demo.victormunoz.gettyimagesdemo.injection.module.ContextModule;
-import demo.victormunoz.gettyimagesdemo.injection.module.PresenterModule;
+import demo.victormunoz.gettyimagesdemo.di.component.DaggerSearchComponent;
+import demo.victormunoz.gettyimagesdemo.di.module.AdapterModule;
+import demo.victormunoz.gettyimagesdemo.di.module.ContextModule;
+import demo.victormunoz.gettyimagesdemo.di.module.PresenterModule;
 import demo.victormunoz.gettyimagesdemo.model.GettyImage;
 import demo.victormunoz.gettyimagesdemo.utils.espresso.EspressoIdlingResource;
 import demo.victormunoz.gettyimagesdemo.utils.recyclerview.SameMargin;
 
+@SuppressWarnings("WeakerAccess")
 public class SearchActivity extends AppCompatActivity
         implements Contract.Views, Adapter.AdapterListener {
     @BindView(R.id.app_bar)
@@ -140,18 +142,18 @@ public class SearchActivity extends AppCompatActivity
     private void hideSoftKeyboard() {
         if (getCurrentFocus() != null) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            Objects.requireNonNull(inputMethodManager).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
 
     private void showSoftKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(search, InputMethodManager.SHOW_IMPLICIT);
+        Objects.requireNonNull(imm).showSoftInput(search, InputMethodManager.SHOW_IMPLICIT);
     }
 
     private void setSnackBarLeftIcon(Snackbar snackBar) {
         View sbView = snackBar.getView();
-        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
         Drawable cloudIcon = ResourcesCompat.getDrawable(getResources(), R.drawable.icon_cloud, null);
         textView.setCompoundDrawablesWithIntrinsicBounds(cloudIcon, null, null, null);
         textView.setCompoundDrawablePadding(getResources().getDimensionPixelOffset(R.dimen.margin_content));

@@ -5,8 +5,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context="demo.victormunoz.gettyimagesdemo.ui.search.SearchActivity">
+    tools:context="demo.victormunoz.gettyimagesdemo.features.search.SearchActivity">
 
     <android.support.design.widget.AppBarLayout
         android:clipChildren="false"

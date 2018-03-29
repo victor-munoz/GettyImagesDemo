@@ -10,7 +10,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
-public class Deserializer <T> implements TypeAdapterFactory {
+public class Deserializer implements TypeAdapterFactory {
     private final String objectName;
 
     public Deserializer(String objectName){

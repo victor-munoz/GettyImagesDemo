@@ -1,8 +1,9 @@
-package demo.victormunoz.gettyimagesdemo.injection.module;
+package demo.victormunoz.gettyimagesdemo.di.module;
 
 import dagger.Module;
 import dagger.Provides;
 
+@SuppressWarnings("WeakerAccess")
 @Module(includes = {ContextModule.class})
 public class PicassoModule {
     @Provides

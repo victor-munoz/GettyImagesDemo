@@ -16,8 +16,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import demo.victormunoz.gettyimagesdemo.macher.RecyclerViewMatcher;
-import demo.victormunoz.gettyimagesdemo.ui.search.SearchActivity;
+import demo.victormunoz.gettyimagesdemo.features.search.SearchActivity;
 
 
 import static android.support.test.espresso.Espresso.onView;
@@ -28,20 +27,21 @@ import static android.support.test.espresso.contrib.RecyclerViewActions.scrollTo
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static demo.victormunoz.gettyimagesdemo.endlessLoadedTest.Matchers.withItemCount;
+import static demo.victormunoz.gettyimagesdemo.macher.RecyclerViewMatcher.atPosition;
 
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
 public class endlessLoadedTest {
     @Rule
-    public ActivityTestRule<SearchActivity> mNotesActivityTestRule =
+    public final ActivityTestRule<SearchActivity> mNotesActivityTestRule =
             new ActivityTestRule<>(SearchActivity.class);
     private int pageSize;
 
     @Before
     public void setUp() {
         //set number of images downloaded in one call
-        pageSize=InstrumentationRegistry.getTargetContext().getResources().getInteger(R.integer.page_size);
+        pageSize = InstrumentationRegistry.getTargetContext().getResources().getInteger(R.integer.page_size);
         //set idle
         Espresso.registerIdlingResources(mNotesActivityTestRule.getActivity().getCountingIdlingResource());
         //trick to allow scrollToPosition inside CoordinatorLayout, otherwise the scroll will not be
@@ -49,7 +49,7 @@ public class endlessLoadedTest {
         mNotesActivityTestRule.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                RecyclerView recyclerView = (RecyclerView) mNotesActivityTestRule.getActivity().findViewById(R.id.recycler_view);
+                RecyclerView recyclerView = mNotesActivityTestRule.getActivity().findViewById(R.id.recycler_view);
                 CoordinatorLayout.LayoutParams params =
                         (CoordinatorLayout.LayoutParams) recyclerView.getLayoutParams();
                 params.setBehavior(null);
@@ -65,33 +65,24 @@ public class endlessLoadedTest {
     public void endlessScrollingTest() {
         //search images with the phrase 'g'
         onView(withId(R.id.search)).perform(typeText("g"), pressImeActionButton());
-        //scroll to the last element twice
+        //scroll
         onView(withId(R.id.recycler_view)).perform(scrollToPosition(pageSize-1));
         onView(withId(R.id.recycler_view)).perform(scrollToPosition(pageSize*2-1));
-        //check that the last element is displayed
-        onView(withRecyclerView(R.id.recycler_view).atPosition(pageSize*2-1)).check(matches(isDisplayed()));
-        //scroll to the last element
         onView(withId(R.id.recycler_view)).perform(scrollToPosition(pageSize*3-1));
-        //check that the last element is displayed
-        onView(withRecyclerView(R.id.recycler_view).atPosition(pageSize*3-1)).check(matches(isDisplayed()));
-        //scroll to the last element
         onView(withId(R.id.recycler_view)).perform(scrollToPosition(pageSize*4-1));
-        //check that the last element is displayed
-        onView(withRecyclerView(R.id.recycler_view).atPosition(pageSize*4-1)).check(matches(isDisplayed()));
+        //check if item is displayed
+        onView(withId(R.id.recycler_view)).check(matches(atPosition((pageSize*4-1), isDisplayed())));
         //check total loaded images
         onView(withId(R.id.recycler_view)).check(matches(withItemCount(pageSize*5)));
-        //scroll to beginning
-        onView(withId(R.id.recycler_view)).perform(scrollToPosition(0));
 
     }
     @After
     public void unregisterIdlingResource() {
+        onView(withId(R.id.recycler_view)).perform(scrollToPosition(0));
         Espresso.unregisterIdlingResources(
                 mNotesActivityTestRule.getActivity().getCountingIdlingResource());
     }
-    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
-        return new RecyclerViewMatcher(recyclerViewId);
-    }
+
     static class Matchers {
         static Matcher<View> withItemCount(final int size) {
             return new TypeSafeMatcher<View>() {

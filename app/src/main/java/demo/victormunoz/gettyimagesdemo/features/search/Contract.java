@@ -1,4 +1,4 @@
-package demo.victormunoz.gettyimagesdemo.ui.search;
+package demo.victormunoz.gettyimagesdemo.features.search;
 
 import java.util.List;
 import demo.victormunoz.gettyimagesdemo.model.GettyImage;
