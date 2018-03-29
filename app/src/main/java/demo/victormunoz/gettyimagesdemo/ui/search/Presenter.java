@@ -46,6 +46,8 @@ public class Presenter implements Contract.UserActionsListener, Callback<List<Ge
             else{
                 activityListener.noImagesFound();
             }
+        }else{
+            activityListener.onLoadImagesFail();
         }
         EspressoIdlingResource.decrement();
     }

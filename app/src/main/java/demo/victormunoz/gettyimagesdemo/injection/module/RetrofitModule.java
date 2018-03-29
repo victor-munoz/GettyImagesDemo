@@ -21,7 +21,7 @@ public class RetrofitModule {
     private final static String END_POINT ="https://api.gettyimages.com/v3/search/";
 
     public interface GettyImagesAPI {
-        @Headers("Api-Key:4x3mqfykgft2uj2zynnw4b9w")
+        @Headers("Api-Key:tfqcrr3f5vfb5fbuuk9qcczb")
         @GET("images/")
         Call<List<GettyImage>> getImages(
                 @Query("page") int startingPage,
